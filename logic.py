@@ -1,6 +1,5 @@
 import os
 import csv
-from PyQt6 import QtCore
 from PyQt6.QtWidgets import QMainWindow
 from gui import Ui_MainWindow
 
@@ -64,8 +63,6 @@ class CarWashApp(QMainWindow):
             self.selected_package = ''
 
         # retrieve # air fresheners and detail kits and add costs
-        air_freshener_qty = self.ui.air_freshener_spinBox.value()
-        detail_kit_qty = self.ui.detail_kit_spinBox.value()
         for spinbox, price in self.addon_prices.items():
             subtotal += spinbox.value() * price
 
