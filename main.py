@@ -5,7 +5,7 @@ from PyQt6.QtWidgets import QApplication
 from logic import CarWashApp
 
 def read_csv_stats(path):
-    """Read transaction data for start of day and end of day messages. """
+    """Read transaction data for start of day and end of day messages."""
     total = 0.0
     count = 0
     if os.path.exists(path):
