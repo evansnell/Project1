@@ -2,7 +2,6 @@ import os
 import csv
 import sys
 from PyQt6.QtWidgets import QApplication
-from PyQt6.QtWidgets import QMainWindow
 from logic import CarWashApp
 
 def read_csv_stats(path):
@@ -15,27 +14,35 @@ def read_csv_stats(path):
             for row in reader:
                 total += float(row["Total Price"])
                 count += 1
+    # returns total cash amount, number of transactions (rows)
     return total, count
 
 
 def main():
     data_file = "transactions_data.csv"
+    # define total cash amount and number of previous transactions at the...
+    # start of the day (just before the app is launched 'for the day')
     sod_revenue, sod_last_transaction = read_csv_stats(data_file)
+    # start of day message
     if sod_last_transaction == 0:
         print("Start of day: $0.00 --- *no transactions yet*")
     else:
         print(f"Start of day: ${sod_revenue:.2f} --- "
               f"Last transaction number: {sod_last_transaction}")
 
+    #launcehd app (starts day)
     app = QApplication(sys.argv)
     window = CarWashApp()
     window.show()
     exit_code = app.exec()
 
+    # define total cash amount and number of transactions at the end of the day
+    # (when the app is closed)
     eod_revenue, eod_last_transaction = read_csv_stats(data_file)
+    # create end of day message based on number of transactions in the day
     if eod_last_transaction == 0:
         print(f"End of day: ${eod_revenue:.2f} --- *still no transactions*")
-        print("No sales made. ")
+        print("No sales have been made. ")
     else:
         num_sales = eod_last_transaction - sod_last_transaction
         if num_sales == 0:
@@ -49,6 +56,7 @@ def main():
             print(f"In {num_sales} sale{plural}, "
                   f"we made ${eod_revenue - sod_revenue:.2f} today!")
 
+    # closes app (ends day)
     sys.exit(exit_code)
 
 if __name__ == '__main__':
