@@ -48,9 +48,8 @@ class CarWashApp(QMainWindow):
         self.ui.change_label.setText("")
 
     def update_total(self):
-        """Updates the subtotal, tax_amount, and total values and the total_label display.
-        Recalculates everything from the start because it is called every time a new selection or deselection is made."""
-        # resets totals to $0.00 to begin recalculating all new imputs from the start
+        """Updates the subtotal, tax_amount, and total values and the total_label display."""
+        # resets total to $0.00 to begin recalculating all new inputs from the start
         subtotal = 0.0
 
         # add wash package cost
@@ -62,7 +61,7 @@ class CarWashApp(QMainWindow):
         else:
             self.selected_package = ''
 
-        # retrieve # air fresheners and detail kits and add costs
+        # retrieve number of air fresheners and detail kits, then add costs
         for spinbox, price in self.addon_prices.items():
             subtotal += spinbox.value() * price
 
@@ -75,7 +74,7 @@ class CarWashApp(QMainWindow):
 
     def process_transaction(self):
         """Validates cash input, calculates change, and updates info_label and change_label. """
-        # call update_total() to verify that total_label is updated based on what was selected last
+        # verify that total_label is updated based on what is currently selected
         self.update_total()
 
         # validate cash input
@@ -147,7 +146,7 @@ class CarWashApp(QMainWindow):
             change_text = "Exact Amount! - No change"
         self.ui.change_label.setText(change_text)
 
-        # append new transaction row to CSV
+        # append new transaction to CSV as a new row
         with open (self.csv_file, 'a', newline='') as f:
             writer = csv.writer(f)
             writer.writerow([

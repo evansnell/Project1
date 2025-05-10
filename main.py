@@ -30,11 +30,11 @@ def main():
         print(f"Start of day: ${sod_revenue:.2f} --- "
               f"Last transaction number: {sod_last_transaction}")
 
-    #launcehd app (starts day)
+    # launch app (starts day)
     app = QApplication(sys.argv)
     window = CarWashApp()
     window.show()
-    exit_code = app.exec()
+    exit_code = app.exec() # key created when app is closed
 
     # define total cash amount and number of transactions at the end of the day
     # (when the app is closed)
@@ -56,8 +56,7 @@ def main():
             print(f"In {num_sales} sale{plural}, "
                   f"we made ${eod_revenue - sod_revenue:.2f} today!")
 
-    # closes app (ends day)
-    sys.exit(exit_code)
+    sys.exit(exit_code) # ends program with key after the final outputs are finished
 
 if __name__ == '__main__':
     main()
