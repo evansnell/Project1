@@ -29,7 +29,11 @@ class CarWashApp(QMainWindow):
         if not os.path.isfile(self.csv_file):
             with open(self.csv_file, 'w', newline='') as f:
                 writer = csv.writer(f)
-                writer.writerow(['Transaction #', 'Wash Package', 'Air Fresheners', 'Detail Kits', 'Total Price'])
+                writer.writerow(['Transaction #',
+                                 'Wash Package',
+                                 'Air Fresheners',
+                                 'Detail Kits',
+                                 'Total Price'])
             self.next_transaction = 1
         else:
             with open(self.csv_file, 'r', newline='') as f:
